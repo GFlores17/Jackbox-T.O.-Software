@@ -21,4 +21,6 @@
 
 	void checkIfInt(int &num);
 
+	//This is a test commit. Just adding this comment in the getEntry.h file.
+
 #endif
