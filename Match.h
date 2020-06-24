@@ -5,22 +5,25 @@
 #include "Game.h"
 
 class Match {
-
-public:
-	
-	static int getEntry();
-
+private:
 	std::string matchName;
 	std::vector<std::unique_ptr<Game>> listOfGames;
 
+public:
+	static int getEntry();
+
 	Match();
 	Match(std::vector<Player> &vec);
-	Match(const std::string& name);
+	Match(std::string name);
 
 	void printResults();
-	void print();
+	void printName();
+	std::string getName();
+	void setMatchName();
 	//void addGame();
 	void addGame();
+	void addGame(int num);
+
 	void viewGamesResults();
 	void startGame();
 	void enterGameResults();

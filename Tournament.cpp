@@ -111,7 +111,7 @@
 		}
 		else {
 			for (int i = 0; i < listOfRounds.size(); i++) {
-				std::cout << i + 1 << ". " << listOfRounds.at(i)->roundName << "\n";
+				std::cout << i + 1 << ". " << listOfRounds.at(i)->getName() << "\n";
 			}
 			std::cout << "Select round to continue." << std::endl;
 			int choice;
@@ -119,7 +119,7 @@
 			--choice;
 
 			//Goes to the round in listOfRounds vector and accesses it via menu() member function.
-			std::cout << "----------------[" << listOfRounds.at(choice)->roundName << "]----------------\n";
+			std::cout << "----------------[" << listOfRounds.at(choice)->getName() << "]----------------\n";
 			listOfRounds.at(choice)->menu();
 			listOfRounds.at(choice)->menuSelect(getEntry());
 		}//end else/if

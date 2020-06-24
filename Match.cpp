@@ -20,28 +20,44 @@ int Match::getEntry() {
 std::string matchName;
 std::vector<std::unique_ptr<Game>> listOfGames;
 
-Match::Match()
-	:matchName("default constructor")
-{}
-
-Match::Match(const std::string& name)
-	: matchName(name)
+/*Match::Match()	
 {
-	//matchName = name;
+	setMatchName();
 	std::cout << "How many games in this match?\n";
 	int numOfGames;
 	std::cin >> numOfGames;
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	for (int i = 0; i < numOfGames; i++) {
-		addGame();
+		addGame(listOfGames.size() + 1);
+	}
+
+	menu();
+	menuSelect(getEntry());
+}*/
+
+Match::Match() {
+	std::cout << "Default Constructor do nothing.\n";
+}
+
+Match::Match(std::string name)
+	: matchName(name)
+{
+	std::cout << "PASS NAME AS PARAMETER CONSTRUCTOR\n";
+	std::cout << "How many games in this match?\n";
+	int numOfGames;
+	std::cin >> numOfGames;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	for (int i = 0; i < numOfGames; i++) {
+		addGame(listOfGames.size()+1);
 	}
 
 	menu();
 	menuSelect(getEntry());
 }
 
-void Match::print() {
+void Match::printName() {
 	std::cout << matchName << std::endl;
 }
 
@@ -50,6 +66,16 @@ void Match::printResults() {
 	for (int i = 0; i < listOfGames.size(); i++) {
 		listOfGames.at(i)->printGameResults();
 	}
+}
+
+std::string Match::getName() {
+	return matchName;
+}
+
+void Match::setMatchName() {
+	std::cout << "Enter match name.\n";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::getline(std::cin, matchName);
 }
 
 /*void Match::addGame() {
@@ -63,12 +89,24 @@ void Match::addGame() {
 	listOfGames.push_back(move(createdGame));
 }//end addGames();
 
+void Match::addGame(int num) {
+	std::unique_ptr<Game> createdGame = std::make_unique<Game>(num);
+	listOfGames.push_back(move(createdGame));
+}//end addGames();
+
 void Match::viewGamesResults() {
 	for (int i = 0; i < listOfGames.size(); i++) {
-		std::cout << "----------[" << listOfGames.at(i)->gameName << "]----------\n";
-		listOfGames.at(i)->printGameResults();
-	}
-}
+		if (listOfGames.at(i)->getMap().empty() == true) {
+			std::cout << "----------[" << listOfGames.at(i)->getName() << "]----------\n";
+			std::cout << "GAME NOT CONCLUDED\n\n\n";
+		}
+		else {
+			std::cout << "----------[" << listOfGames.at(i)->getName() << "]----------\n";
+			listOfGames.at(i)->printGameResults();
+			std::cout << "\n\n";
+		}
+	}//end for loop
+}//end viewGamesResults()
 
 void Match::startGame() {
 	std::cout << "How many players in game?" << std::endl;
@@ -96,16 +134,16 @@ void Match::enterGameResults() {
 
 void Match::printGames() {
 	for (int i = 0; i < listOfGames.size(); i++) {
-		std::cout << listOfGames.at(i)->gameName << " : " << i + 1 << std::endl;
+		std::cout << "| " << i + 1 << ". | " << listOfGames.at(i)->getName() << " | \n";
 	}
 }
 
 void Match::menu() {
 	std::cout << "----------[" << this->matchName << "]----------\n";
 	std::cout << "----------[Match Menu]----------\n";
-	std::cout << "1. Add games to match.\n"
-		<< "2. Enter Match Results.\n"
-		<< "3. View Match Results.\n"
+	std::cout << "1. Add Game to Match.\n"
+		<< "2. Enter Game Results.\n"
+		<< "3. View Game Results.\n"
 		<< "4. Round Menu.\n";
 }
 
@@ -116,7 +154,7 @@ void Match::exitProgram() {
 void Match::menuSelect(int choice) {
 	switch (choice) {
 	case 1: //Start round, create players.
-		addGame();
+		addGame(listOfGames.size()+1);
 		menu();
 		menuSelect(getEntry());
 		break;

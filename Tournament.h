@@ -22,13 +22,14 @@
 #include "getEntry.h"
 
 class Tournament {
-public:
 
-	static int getEntry();
-
+private:
 	std::string tournamentName;
 	std::vector<std::shared_ptr<Player>> listOfAllPlayers;
 	std::vector<std::shared_ptr<Round>> listOfRounds;
+
+public:
+	static int getEntry();
 
 	Tournament();
 	void printAllPlayers();

@@ -9,14 +9,18 @@
 //Player.h has <iostream>, <iomanip>, and <string>.
 
 class Game {
-public:
+private:
 	std::map <std::string, int> gameResults;
 	std::vector<std::shared_ptr<Player>> playersInGame;
 	std::string gameName;
 
+public:
 	Game();
+	Game(int num);
 	void setName(const std::string& name);
 	std::string getName();
+
+	std::map <std::string, int> getMap();
 
 	void addPlayerToGame();
 	void setGameResults();

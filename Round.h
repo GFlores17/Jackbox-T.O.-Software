@@ -6,15 +6,19 @@
 #include "getEntry.h"
 
 class Round {
-public:
-	static int getEntry();
-
+private:
 	std::string roundName;
 	std::vector <std::unique_ptr<Match>> listOfMatches;
 	std::vector <std::shared_ptr<Player>> playersInRound;
+public:
+	static int getEntry();
 
 	Round();
 	Round(std::vector <std::shared_ptr<Player>>& vec);
+
+	std::string getName();
+	void setRoundName();
+	void printName();
 
 	void menu();
 	void addMatch();

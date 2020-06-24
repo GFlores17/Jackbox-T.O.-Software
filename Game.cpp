@@ -12,12 +12,21 @@
 	Game::Game() {
 		std::cout << "Enter name of created game.\n";
 		std::string gameName;
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::getline(std::cin, gameName);
 		this->gameName = gameName;
 	}
 
+	Game::Game(int num) {
+		gameName = "Game " + std::to_string(num);
+	}
+
 	void Game::setName(const std::string& name) {
 		gameName = name;
+	}
+
+	std::map <std::string, int> Game::getMap() {
+		return gameResults;
 	}
 
 	std::string Game::getName() {
