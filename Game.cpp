@@ -44,7 +44,7 @@
 			std::cin >> gameScore;
 
 			playersInGame.at(i)->manualScoreAdd(gameScore);
-			gameResults.insert(std::pair<std::string, int>(playersInGame.at(i)->pName, gameScore));
+			gameResults.insert(std::pair<std::string, int>(playersInGame.at(i)->getName(), gameScore));
 		}
 	}
 

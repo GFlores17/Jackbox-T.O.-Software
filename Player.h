@@ -23,6 +23,7 @@ public:
 	void manualScoreAdd(int points);
 	void placementScoreAdd(int numOfPlayers, int placement);
 	int getScore();
+	void setScore(int score);
 };
 
 #endif // PLAYER_H

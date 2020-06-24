@@ -53,7 +53,7 @@ int binaryStringSearch(std::vector<std::shared_ptr<Player>> pVec, std::string x,
 		int middle = leftBound + (rightBound - leftBound) / 2;
 
 		bool flag = false;
-		if (x == (pVec.at(middle)->pName)) {
+		if (x == (pVec.at(middle)->getName())) {
 			flag = true;
 		}
 
@@ -63,7 +63,7 @@ int binaryStringSearch(std::vector<std::shared_ptr<Player>> pVec, std::string x,
 			return middle;
 		}
 		// If x greater, ignore left half 
-		if (x > (pVec.at(middle)->pName)) {
+		if (x > (pVec.at(middle)->getName())) {
 			leftBound = middle + 1;
 			//std::cout << "NEW LEFT : " << leftBound << std::endl;
 		}
@@ -84,15 +84,15 @@ void nameSort(std::vector<std::shared_ptr<Player>>& vec) {
 
 	for (int i = 0; i < vec.size(); i++) {
 		for (int j = i + 1; j < vec.size(); j++) {
-			if ((vec.at(j)->pName).compare(vec.at(i)->pName) < 0) {
-				p->pName = vec.at(i)->pName;
-				p->score = vec.at(i)->score;
+			if ((vec.at(j)->getName()).compare(vec.at(i)->getName()) < 0) {
+				p->setName(vec.at(i)->getName());
+				p->setScore(vec.at(i)->getScore());
 
-				vec.at(i)->pName = vec.at(j)->pName;
-				vec.at(i)->score = vec.at(j)->score;
+				vec.at(i)->setName(vec.at(j)->getName());
+				vec.at(i)->setScore(vec.at(j)->getScore());
 
-				vec.at(j)->pName = p->pName;
-				vec.at(j)->score = p->score;
+				vec.at(j)->setName(p->getName());
+				vec.at(j)->setScore(p->getScore());
 			}
 		}
 	}
@@ -108,15 +108,15 @@ void scoreSort(std::vector<std::shared_ptr<Player>> vec) {
 
 	for (int i = 0; i < vec.size(); i++) {
 		for (int j = i + 1; j < vec.size(); j++) {
-			if (vec.at(j)->score > vec.at(i)->score) {
-				p->pName = vec.at(i)->pName;
-				p->score = vec.at(i)->score;
+			if (vec.at(j)->getScore() > vec.at(i)->getScore()) {
+				p->setName(vec.at(i)->getName());
+				p->setScore(vec.at(i)->getScore());
 
-				vec.at(i)->pName = vec.at(j)->pName;
-				vec.at(i)->score = vec.at(j)->score;
+				vec.at(i)->setName(vec.at(j)->getName());
+				vec.at(i)->setScore(vec.at(j)->getScore());
 
-				vec.at(j)->pName = p->pName;
-				vec.at(j)->score = p->score;
+				vec.at(j)->setName(p->getName());
+				vec.at(j)->setScore(p->getScore());
 			}
 		}
 	}

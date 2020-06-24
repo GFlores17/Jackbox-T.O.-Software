@@ -89,8 +89,8 @@
 			std::string name;
 
 			std::getline(std::cin, name);
-			p->pName = name;
-			p->score = i;
+			p->setName(name);
+			p->setScore(i);
 
 			listOfAllPlayers.push_back(p);
 			std::cout << std::endl;
