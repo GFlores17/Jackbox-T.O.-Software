@@ -6,12 +6,16 @@
 #include <string> 
 
 class Player {
-public:
+private:
 	std::string pName;
 	int score;
 
+public:
 	Player();
 	Player(const std::string& Name);
+
+	std::string getName();
+	void setName(const std::string& name);
 
 	void print();
 	void promptForScore();

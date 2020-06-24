@@ -3,143 +3,144 @@
 #include "Game.h"
 #include "getEntry.h"
 
-	int Match::getEntry() {
-		int choice;
+int Match::getEntry() {
+	int choice;
+	std::cin >> choice;
+	checkIfInt(choice);
+
+	while (choice < 1 || choice > 4) {
+		std::cout << "invalid option. retry now." << std::endl;
 		std::cin >> choice;
 		checkIfInt(choice);
+	}
+	std::cout << std::endl;
+	return choice;
+}
 
-		while (choice < 1 || choice > 4) {
-			std::cout << "invalid option. retry now." << std::endl;
-			std::cin >> choice;
-			checkIfInt(choice);
-		}
-		std::cout << std::endl;
-		return choice;
+std::string matchName;
+std::vector<std::unique_ptr<Game>> listOfGames;
+
+Match::Match()
+	:matchName("default constructor")
+{}
+
+Match::Match(const std::string& name)
+	: matchName(name)
+{
+	//matchName = name;
+	std::cout << "How many games in this match?\n";
+	int numOfGames;
+	std::cin >> numOfGames;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	for (int i = 0; i < numOfGames; i++) {
+		addGame();
 	}
 
-	std::string matchName;
-	std::vector<std::unique_ptr<Game>> listOfGames;
+	menu();
+	menuSelect(getEntry());
+}
 
-	Match::Match()
-		:matchName("default constructor")
-	{}
+void Match::print() {
+	std::cout << matchName << std::endl;
+}
 
-	Match::Match(const std::string& name)
-		: matchName(name)
-	{
-		menu();
-		menuSelect(getEntry());
+void Match::printResults() {
+	std::cout << matchName << std::endl;
+	for (int i = 0; i < listOfGames.size(); i++) {
+		listOfGames.at(i)->printGameResults();
 	}
+}
 
-	void Match::print() {
-		std::cout << matchName << std::endl;
+/*void Match::addGame() {
+	std::unique_ptr<Game> createdGame = std::make_unique<Game>();
+	listOfGames.push_back(move(createdGame));
+	std::cout << "Successfully added\n";
+}*/
+
+void Match::addGame() {
+	std::unique_ptr<Game> createdGame = std::make_unique<Game>();
+	listOfGames.push_back(move(createdGame));
+}//end addGames();
+
+void Match::viewGamesResults() {
+	for (int i = 0; i < listOfGames.size(); i++) {
+		std::cout << "----------[" << listOfGames.at(i)->gameName << "]----------\n";
+		listOfGames.at(i)->printGameResults();
 	}
+}
 
-	void Match::printResults() {
-		std::cout << matchName << std::endl;
-		for (int i = 0; i < listOfGames.size(); i++) {
-			listOfGames.at(i)->printGameResults();
-		}
-	}
+void Match::startGame() {
+	std::cout << "How many players in game?" << std::endl;
+	int num;
+	std::cin >> num;
 
-	void Match::addGame() {
-		std::unique_ptr<Game> createdGame = std::make_unique<Game>();
-		listOfGames.push_back(move(createdGame));
-		std::cout << "Successfully added\n";
-	}
+}
 
-	void Match::addGames() {
-		int num;
-		std::cout << "How many games to add?" << std::endl;
-		std::cin >> num;
-		for (int i = 0; i < num; i++) {
-			std::unique_ptr<Game> createdGame = std::make_unique<Game>();
-			std::cout << "Enter name of created game." << std::endl;
-			std::string roundName;
-			std::cin >> roundName;
-			createdGame->name = roundName;
-			listOfGames.push_back(move(createdGame));
-		}//end for loop
-	}//end addGames();
-
-	void Match::viewGamesResults() {
-		for (int i = 0; i < listOfGames.size(); i++) {
-			std::cout << "----------[" << listOfGames.at(i)->name << "]----------\n";
-			listOfGames.at(i)->printGameResults();
-		}
-	}
-
-	void Match::startGame() {
-		std::cout << "How many players in game?" << std::endl;
-		int num;
-		std::cin >> num;
-
-	}
-
-	void Match::enterGameResults() {
-		printGames();
-		std::cout << "Which game has ended?" << std::endl;
-		int game;
+void Match::enterGameResults() {
+	printGames();
+	std::cout << "Which game has ended?" << std::endl;
+	int game;
+	std::cin >> game;
+	checkIfInt(game);
+	while (game < 1 || game > listOfGames.size()) {
+		std::cout << "Game does not exist, try again." << std::endl;
 		std::cin >> game;
 		checkIfInt(game);
-		while (game < 1 || game > listOfGames.size()) {
-			std::cout << "Game does not exist, try again." << std::endl;
-			std::cin >> game;
-			checkIfInt(game);
-		}
-		--game;
-		listOfGames.at(game)->addPlayerToGame();
-		//Above is test line. Fix addPlayerToGame later by checking with match vector.
-		listOfGames.at(game)->setGameResults();
 	}
+	--game;
+	listOfGames.at(game)->addPlayerToGame();
+	//Above is test line. Fix addPlayerToGame later by checking with match vector.
+	listOfGames.at(game)->setGameResults();
+}
 
-	void Match::printGames() {
-		for (int i = 0; i < listOfGames.size(); i++) {
-			std::cout << listOfGames.at(i)->name << " : " << i + 1 << std::endl;
-		}
+void Match::printGames() {
+	for (int i = 0; i < listOfGames.size(); i++) {
+		std::cout << listOfGames.at(i)->gameName << " : " << i + 1 << std::endl;
 	}
+}
 
-	void Match::menu() {
-			std::cout << "----------[" << matchName << "]----------\n";
-			std::cout << "----------[Match Menu]----------\n";
-			std::cout << "1. Add games to match.\n"
-			<< "2. Enter Match Results.\n"
-			<< "3. View Match Results.\n"
-			<< "4. Round Menu.\n";
-	}
+void Match::menu() {
+	std::cout << "----------[" << this->matchName << "]----------\n";
+	std::cout << "----------[Match Menu]----------\n";
+	std::cout << "1. Add games to match.\n"
+		<< "2. Enter Match Results.\n"
+		<< "3. View Match Results.\n"
+		<< "4. Round Menu.\n";
+}
 
-	void Match::exitProgram() {
-		std::cout << "Exiting match." << std::endl;
-	}
+void Match::exitProgram() {
+	std::cout << "Exiting match." << std::endl;
+}
 
-	void Match::menuSelect(int choice) {
-		switch (choice) {
-		case 1: //Start round, create players.
-			addGame();
-			menu();
-			menuSelect(getEntry());
-			break;
+void Match::menuSelect(int choice) {
+	switch (choice) {
+	case 1: //Start round, create players.
+		addGame();
+		menu();
+		menuSelect(getEntry());
+		break;
 
-		case 2:
-			enterGameResults();
-			menu();
-			menuSelect(getEntry());
-			break;
+	case 2:
+		enterGameResults();
+		menu();
+		menuSelect(getEntry());
+		break;
 
-		case 3:
-			viewGamesResults();
-			menu();
-			menuSelect(getEntry());
-			break;
-		
-		case 4: //Exit program.
-			exitProgram();
-			break;
+	case 3:
+		viewGamesResults();
+		menu();
+		menuSelect(getEntry());
+		break;
 
-		default:
-			std::cout << "invalid option. retry now." << std::endl;
-			menu();
-			menuSelect(getEntry());
-		}// end switch statement
+	case 4: //Exit program.
+		exitProgram();
+		break;
 
-	}//end menuSelect
+	default:
+		std::cout << "invalid option. retry now." << std::endl;
+		menu();
+		menuSelect(getEntry());
+	}// end switch statement
+
+}//end menuSelect

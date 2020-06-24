@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <string> 
+#include <limits>
 
 #include "Round.h"
 #include "Match.h"
@@ -35,7 +36,7 @@
 		checkIfInt(choice);
 
 		while (choice < 1 || choice > 5) {
-			std::cout << "invalid option. retry now." << std::endl;
+			std::cout << "Invalid option. Try again." << std::endl;
 			std::cin >> choice;
 			checkIfInt(choice);
 		}
@@ -51,19 +52,17 @@
 	Tournament::Tournament() {
 		std::cout << "Please enter Tournament name.\n";
 		std::getline(std::cin, tournamentName);
+		std::cout << "--------------[" << tournamentName << "]--------------" << "\n";
+		//Initialize name.
 
-		std::cout << "Tourney Name : " << tournamentName << "\n";
 		tournamentMenu();
 		menuSelect(getEntry());
-	}
-
-	void Tournament::testPrint() {
-		std::cout << "TESTING THE HEADER FILE." << std::endl;
+		//Start tournament.
 	}
 
 	void Tournament::printAllPlayers() {
 		if (listOfAllPlayers.size() == 0) {//If no people in tournament.
-			std::cout << "empty tournament" << std::endl;
+			std::cout << "ERROR : Empty Tournament. No players registered." << std::endl;
 		}
 
 		else {
@@ -78,16 +77,18 @@
 
 	void Tournament::registerPlayers() {
 
-		std::cout << "# of players to register?" << std::endl;
+		std::cout << "Number of players to register?" << std::endl;
 		int numOfPlayers;
 		std::cin >> numOfPlayers;
 		checkIfInt(numOfPlayers);
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		for (int i = 0; i < numOfPlayers; i++) {
 			std::shared_ptr<Player> p = std::make_shared<Player>();
-			std::cout << "Enter player name." << std::endl;
+			std::cout << "Enter player name.\n";
 			std::string name;
-			std::cin >> name;
+
+			std::getline(std::cin, name);
 			p->pName = name;
 			p->score = i;
 
@@ -109,11 +110,10 @@
 			std::cout << "No rounds created yet.\n";
 		}
 		else {
-			std::cout << "Select round to review." << std::endl;
 			for (int i = 0; i < listOfRounds.size(); i++) {
 				std::cout << i + 1 << ". " << listOfRounds.at(i)->roundName << "\n";
 			}
-			std::cout << "Which round to continue?\n";
+			std::cout << "Select round to continue." << std::endl;
 			int choice;
 			std::cin >> choice;
 			--choice;
@@ -195,5 +195,10 @@
 
 	int main() {
 		Tournament T = Tournament();
+		std::string x;
+		/*for (int i = 0; i < 10; i++) {
+			std::getline(std::cin, x);
+			std::cout << x << "\n";
+		}*/
 		//This is a test to make my sister think I'm smarter than I actually am.
 	}

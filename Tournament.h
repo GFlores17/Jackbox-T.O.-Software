@@ -31,7 +31,6 @@ public:
 	std::vector<std::shared_ptr<Round>> listOfRounds;
 
 	Tournament();
-	virtual void testPrint();
 	void printAllPlayers();
 	void registerPlayers();
 	void startRound();

@@ -16,6 +16,14 @@ int score;
 		score = 0;
 	}
 
+	std::string Player::getName() {
+		return pName;
+	}
+
+	void Player::setName(const std::string& name) {
+		pName = name;
+	}
+
 	void Player::print() {//Print formatted player name & stats.
 		std::cout << std::setfill(' ') << std::setw(10);
 		std::cout << pName << std::setw(2) << " : " << std::setw(2) << score << " pts" << std::endl;

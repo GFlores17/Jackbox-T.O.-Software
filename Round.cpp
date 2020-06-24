@@ -22,8 +22,9 @@ std::vector <std::unique_ptr<Match>> listOfMatches;
 std::vector <std::shared_ptr<Player>> playersInRound;
 
 Round::Round() {//Constructor
-	std::cout << "Enter round name." << std::endl << std::endl;
-	std::cin >> roundName;
+	std::cout << "Enter round name.\n";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::getline(std::cin, roundName);
 	std::cout << "-------------------------------" << "[" << roundName << "]" << "-------------------------------" << std::endl;
 
 	menu();
@@ -31,8 +32,9 @@ Round::Round() {//Constructor
 }
 
 Round::Round(std::vector <std::shared_ptr<Player>>& playersInTournament) {//Test function.
-	std::cout << "Enter round name." << std::endl << std::endl;
-	std::cin >> roundName;
+	std::cout << "Enter round name.\n";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::getline(std::cin, roundName);
 	std::cout << "-------------------------------" << "[" << roundName << "]" << "-------------------------------" << std::endl;
 
 
@@ -49,43 +51,48 @@ void Round::menu() {
 }
 
 void Round::addMatch() {
-	std::cout << "How many matches would you like to add?" << std::endl;
-	int rounds;
-	std::cin >> rounds;
+	std::cout << "Name of Match?\n";
+	std::string name;
 
-	for (int i = 0; i < rounds; i++) {
-		std::cout << "Name of match " << i + 1 << "?\n";
-		std::string name;
-		std::cin >> name;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::getline(std::cin, roundName);
 
-		std::unique_ptr<Match> m = std::make_unique<Match>(name);
-		listOfMatches.push_back(move(m));
-	}//end for loop
+	std::unique_ptr<Match> m = std::make_unique<Match>(name);
+	listOfMatches.push_back(move(m));
+
 }//end of addMatch
 
-void Round::addPlayer(std::vector<std::shared_ptr<Player>>& vec) {
-	std::cout << "How many players to add?\n";
-	int numOfPlayers;
-	std::cin >> numOfPlayers;
+void Round::addPlayer(std::vector<std::shared_ptr<Player>>& playersInTournament) {
+	if (playersInTournament.size() == 0) {
+		std::cout << "Empty Tournament. No players to add.\n";
+	}
 
-	for (int i = 0; i < numOfPlayers; i++) {
-		std::cout << "Name of player to add?\n";
-		std::string player;
-		std::cin >> player;
+	else {//If tournament has players.
+		std::cout << "How many players to add?\n";
+		int numOfPlayers;
+		std::cin >> numOfPlayers;
 
-		int placement;
-		std::cout << "searching for : " << player << std::endl;
-		placement = binaryStringSearch(vec, player, vec.size());
-		//validates player.
+		for (int i = 0; i < numOfPlayers; i++) {
+			std::cout << "Name of player to add?\n";
+			std::string player;
+			std::cin >> player;
 
-		std::cout << "PLACEMENT : " << placement << std::endl;
+			int placement;
+			//std::cout << "searching for : " << player << std::endl;
+			placement = binaryStringSearch(playersInTournament, player, playersInTournament.size());
+			//Returns index of player in listOfAllPlayers if it does exist.
 
-		if (placement < 0) {
-			std::cout << "Invalid player.\n";
-		}
-		else {
-			playersInRound.emplace_back(vec.at(placement));
-		}
+			//std::cout << "PLACEMENT : " << placement << std::endl;
+
+			if (placement < 0) {
+				std::cout << "Invalid player.\n";
+			}
+			else {
+				playersInRound.emplace_back(playersInTournament.at(placement));
+				std::cout << "Added successfully.\n";
+				//Push a copy of a player pointer from playersInTournament to playersInRound.
+			}
+		}//end big if else.
 
 	}//end for loop
 

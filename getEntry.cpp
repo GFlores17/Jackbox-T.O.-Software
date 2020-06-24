@@ -65,12 +65,12 @@ int binaryStringSearch(std::vector<std::shared_ptr<Player>> pVec, std::string x,
 		// If x greater, ignore left half 
 		if (x > (pVec.at(middle)->pName)) {
 			leftBound = middle + 1;
-			std::cout << "NEW LEFT : " << leftBound << std::endl;
+			//std::cout << "NEW LEFT : " << leftBound << std::endl;
 		}
 		// If x is smaller, ignore right half 
 		else {
 			rightBound = middle - 1;
-			std::cout << "NEW RIGHT : " << rightBound << std::endl;
+			//std::cout << "NEW RIGHT : " << rightBound << std::endl;
 		}
 	}
 

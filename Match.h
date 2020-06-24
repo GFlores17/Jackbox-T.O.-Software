@@ -19,8 +19,8 @@ public:
 
 	void printResults();
 	void print();
+	//void addGame();
 	void addGame();
-	void addGames();
 	void viewGamesResults();
 	void startGame();
 	void enterGameResults();

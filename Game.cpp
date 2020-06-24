@@ -7,11 +7,21 @@
 
 	std::map <std::string, int> gameResults;
 	std::vector<std::shared_ptr<Player>> playersInGame;
-	std::string name;
+	std::string gameName;
 
 	Game::Game() {
-		std::cout << "Enter name of game." << std::endl;
-		std::cin >> name;
+		std::cout << "Enter name of created game.\n";
+		std::string gameName;
+		std::getline(std::cin, gameName);
+		this->gameName = gameName;
+	}
+
+	void Game::setName(const std::string& name) {
+		gameName = name;
+	}
+
+	std::string Game::getName() {
+		return gameName;
 	}
 
 	void Game::addPlayerToGame() {

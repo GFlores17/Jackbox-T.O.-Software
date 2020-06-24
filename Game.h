@@ -12,9 +12,12 @@ class Game {
 public:
 	std::map <std::string, int> gameResults;
 	std::vector<std::shared_ptr<Player>> playersInGame;
-	std::string name;
+	std::string gameName;
 
 	Game();
+	void setName(const std::string& name);
+	std::string getName();
+
 	void addPlayerToGame();
 	void setGameResults();
 	void printGameResults();
