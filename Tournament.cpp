@@ -1,8 +1,11 @@
+#define NOMINMAX
 #include <iostream>
 #include <vector>
 #include <memory>
 #include <string> 
 #include <limits>
+#include <windows.h>
+//these two headers are already included in the <Windows.h> header
 
 #include "Round.h"
 #include "Match.h"
@@ -17,17 +20,6 @@
 
 		std::cout << "This is a small scorekeeping software program written in C++\n";
 		std::cout << "that allows the user to organize tournament play using 3 functions.\n\n";
-		/*
-		std::cout << "1. Create a round.\n";
-		std::cout << "    1a. This is done by naming a round, then the total # of players, then assigning each player a name.\n\n";
-		std::cout << "2. Updating scores.\n";
-		std::cout << "    2a. After the end of a round, the user can go through the entire list of players in the round and\n";
-		std::cout << "    add points to their score.\n";
-		std::cout << "    NOTE: Option to add points individually at a given time instead of every player at once to be added later.\n\n";
-		std::cout << "3. Display standings.\n";
-		std::cout << "    3a. The system arranges all players in the current round from highest score to lowest score.\n";
-		std::cout << "    NOTE: Ability to automatically detect top cut based on user input to be added later.\n\n";
-		*/
 	}
 
 	int Tournament::getEntry() {
@@ -172,18 +164,8 @@
 			menuSelect(getEntry());
 			break;
 
-		/*
-		case 5: //Rearrange alphabetically
-			nameSort(listOfAllPlayers);
-			printAllPlayers();
-			tournamentMenu();
-			menuSelect(getEntry());
-			break;
-		*/
-
 		case 5: //Exit program.
 			exitProgram();
-
 			break;
 
 		default:
@@ -194,11 +176,7 @@
 	}//end menuSelect
 
 	int main() {
+		bool played = PlaySound(TEXT("C:\\Users\\hp\\Desktop\\Universe Sandbox Soundtrack - Track 6.wav"), NULL, SND_ASYNC);
+		helloMessage();
 		Tournament T = Tournament();
-		std::string x;
-		/*for (int i = 0; i < 10; i++) {
-			std::getline(std::cin, x);
-			std::cout << x << "\n";
-		}*/
-		//This is a test to make my sister think I'm smarter than I actually am.
 	}

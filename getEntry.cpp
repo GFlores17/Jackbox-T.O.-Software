@@ -78,9 +78,10 @@ int binaryStringSearch(std::vector<std::shared_ptr<Player>> pVec, std::string x,
 }
 
 void nameSort(std::vector<std::shared_ptr<Player>>& vec) {
-	//sorts players in the vector by name. 
-	//Sort Tournament vector by names so Round constructor can confirm it.
-	Player* p = new Player("temp");
+	//Sorts "Player" pointers in the vector by name. 
+	//Self-note. Arrays have to be sorted before the can be properly (algorithmically) searched.
+	Player player = Player("temp");
+	Player* p = &player;
 
 	for (int i = 0; i < vec.size(); i++) {
 		for (int j = i + 1; j < vec.size(); j++) {
@@ -96,15 +97,13 @@ void nameSort(std::vector<std::shared_ptr<Player>>& vec) {
 			}
 		}
 	}
-
-	p = NULL;
-	delete p;
 }//end nameSort()
 
 void scoreSort(std::vector<std::shared_ptr<Player>> vec) {
-	//sorts players by score on a copy of list (does not mess with the alphabetic order of actual
-	//member array listOfAllPlayers
-	Player* p = new Player("temp");
+	//Sorts "Player" pointers in the vector by score. 
+	//Self-note. Arrays have to be sorted before the can be properly (algorithmically) searched.
+	Player player = Player("temp");
+	Player* p = &player;
 
 	for (int i = 0; i < vec.size(); i++) {
 		for (int j = i + 1; j < vec.size(); j++) {
@@ -120,9 +119,6 @@ void scoreSort(std::vector<std::shared_ptr<Player>> vec) {
 			}
 		}
 	}
-
-	p = NULL;
-	delete p;
 }//end scoreSort
 
 void checkIfInt(int &num) {
