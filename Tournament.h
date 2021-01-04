@@ -30,6 +30,7 @@ private:
 
 public:
 	static int getEntry();
+	static void parameterTest();
 
 	Tournament();
 	void printAllPlayers();

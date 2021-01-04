@@ -13,13 +13,14 @@
 #include "Tournament.h"
 #include "getEntry.h"
 
-	static void helloMessage() {
-		std::cout << std::setfill(' ') << std::setw(45) << "***************************************************" << std::endl;
-		std::cout << std::setfill(' ') << std::setw(33) << "Welcome to the" << std::endl << std::setfill(' ') << std::setw(39) << "JACKBOX TOURNAMENT MANAGER" << std::endl << std::setfill(' ') << std::setw(30) << "program." << std::endl;
-		std::cout << std::setfill(' ') << std::setw(45) << "***************************************************" << std::endl << std::endl;
-
-		std::cout << "This is a small scorekeeping software program written in C++\n";
-		std::cout << "that allows the user to organize tournament play using 3 functions.\n\n";
+	
+	
+	static void parameterTest(std::shared_ptr<Tournament>T) {
+		std::cout << T.get();
+		std::shared_ptr<Tournament> meme;
+		meme = T;
+		std::cout << std::endl;
+		meme.get();
 	}
 
 	int Tournament::getEntry() {
@@ -82,7 +83,7 @@
 
 			std::getline(std::cin, name);
 			p->setName(name);
-			p->setScore(i);
+			p->setScore(0);
 
 			listOfAllPlayers.push_back(p);
 			std::cout << std::endl;
@@ -175,8 +176,24 @@
 
 	}//end menuSelect
 
+	/*
 	int main() {
 		bool played = PlaySound(TEXT("C:\\Users\\hp\\Desktop\\Universe Sandbox Soundtrack - Track 6.wav"), NULL, SND_ASYNC);
 		helloMessage();
 		Tournament T = Tournament();
+		{
+			
+			std::shared_ptr<int> num(new int(5));
+			std::cout << *num << std::endl;
+
+			std::vector<std::shared_ptr<int>> numVec;
+			std::cout << numVec.size() << std::endl;
+			{
+				numVec.push_back(num);
+			}
+			std::cout << numVec.size() << std::endl;
+
+		}
+		
 	}
+	*/

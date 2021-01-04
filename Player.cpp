@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include <string> 
+#include <string>
 #include "Player.h"
 
 std::string pName;
@@ -52,3 +52,4 @@ int score;
 	void Player::setScore(int score) {
 		this->score = score;
 	}
+

@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="getEntry.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Round.cpp" />
