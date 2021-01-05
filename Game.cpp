@@ -33,15 +33,10 @@
 		return gameName;
 	}
 
-	void Game::addPlayerToGame() {
-		std::shared_ptr<Player> p = std::make_shared<Player>("a");
-		std::shared_ptr<Player> q = std::make_shared<Player>("b");
-		std::shared_ptr<Player> r = std::make_shared<Player>("d");
-		std::shared_ptr<Player> s = std::make_shared<Player>("c");
-		playersInGame.push_back(p);
-		playersInGame.push_back(q);
-		playersInGame.push_back(r);
-		playersInGame.push_back(s);
+	void Game::addPlayersToGame(std::vector<std::shared_ptr<Player>> matchPlayerVector) {
+		for (int i = 0; i < matchPlayerVector.size(); i++) {
+			this->playersInGame.push_back(matchPlayerVector.at(i));
+		}
 	}
 
 	void Game::setGameResults() {//Creates map according to 
@@ -64,6 +59,12 @@
 		for (itr = gameResults.begin(); itr != gameResults.end(); ++itr) {
 			std::cout << '\t' << itr->first
 				<< '\t' << itr->second << '\n';
+		}
+	}
+
+	void Game::printPlayers() {
+		for (int i = 0; i < playersInGame.size(); i++) {
+			std::cout << playersInGame.at(i)->getName() << "\n";
 		}
 	}
 

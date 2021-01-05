@@ -19,6 +19,7 @@ int Match::getEntry() {
 
 std::string matchName;
 std::vector<std::unique_ptr<Game>> listOfGames;
+std::vector<std::shared_ptr<Player>> matchPlayersVector;
 
 /*Match::Match()	
 {
@@ -40,10 +41,11 @@ Match::Match() {
 	std::cout << "Default Constructor do nothing.\n";
 }
 
-Match::Match(std::string name)
+Match::Match(std::string name, std::vector<std::shared_ptr<Player>> roundPlayerVector)
 	: matchName(name)
 {
-	std::cout << "PASS NAME AS PARAMETER CONSTRUCTOR\n";
+	//std::cout << "PASS NAME AS PARAMETER CONSTRUCTOR\n";
+	addPlayers(roundPlayerVector);
 	std::cout << "How many games in this match?\n";
 	int numOfGames;
 	std::cin >> numOfGames;
@@ -78,21 +80,29 @@ void Match::setMatchName() {
 	std::getline(std::cin, matchName);
 }
 
-/*void Match::addGame() {
-	std::unique_ptr<Game> createdGame = std::make_unique<Game>();
-	listOfGames.push_back(move(createdGame));
-	std::cout << "Successfully added\n";
-}*/
+std::vector<std::shared_ptr<Player>> Match::getMatchPlayersVector() {
+	return this->matchPlayersVector;
+}
 
 void Match::addGame() {
 	std::unique_ptr<Game> createdGame = std::make_unique<Game>();
+	createdGame->addPlayersToGame(matchPlayersVector);
+	//createdGame->printPlayers();
 	listOfGames.push_back(move(createdGame));
 }//end addGames();
 
 void Match::addGame(int num) {
 	std::unique_ptr<Game> createdGame = std::make_unique<Game>(num);
+	createdGame->addPlayersToGame(matchPlayersVector);
+	//createdGame->printPlayers();
 	listOfGames.push_back(move(createdGame));
 }//end addGames();
+
+void Match::addPlayers(std::vector<std::shared_ptr<Player>> roundPlayersVector) {
+	for (int i = 0; i < roundPlayersVector.size(); i++) {
+		this->matchPlayersVector.push_back(roundPlayersVector.at(i));
+	}
+}
 
 void Match::viewGamesResults() {
 	for (int i = 0; i < listOfGames.size(); i++) {
@@ -127,7 +137,8 @@ void Match::enterGameResults() {
 		checkIfInt(game);
 	}
 	--game;
-	listOfGames.at(game)->addPlayerToGame();
+	//Decrement 
+	
 	//Above is test line. Fix addPlayerToGame later by checking with match vector.
 	listOfGames.at(game)->setGameResults();
 }

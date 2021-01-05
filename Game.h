@@ -22,9 +22,10 @@ public:
 
 	std::map <std::string, int> getMap();
 
-	void addPlayerToGame();
+	void addPlayersToGame(std::vector<std::shared_ptr<Player>> matchPlayerVector);
 	void setGameResults();
 	void printGameResults();
+	void printPlayers();
 	//void addPlayerToGame(std::vector<shared_ptr<Player>>& playersInTournament);
 
 };

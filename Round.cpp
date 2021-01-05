@@ -37,6 +37,7 @@ Round::Round(std::vector <std::shared_ptr<Player>>& playersInTournament) {//Test
 	printName();
 
 	addPlayer(playersInTournament);
+	//selectPlayers(playersInTournament);
 	menu();
 	menuSelect(getEntry());
 }
@@ -50,6 +51,7 @@ void Round::setRoundName() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::getline(std::cin, roundName);
 }
+
 
 void Round::printName() {
 	std::cout << "-------------------------------" << "[" << roundName << "]" << "-------------------------------" << std::endl;
@@ -67,6 +69,12 @@ void Round::addPlayer(std::vector<std::shared_ptr<Player>>& playersInTournament)
 		checkIfInt(numOfPlayers);
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		//Prepare for getline().
+
+		//std::cout << "Select player to add to round.\n";
+		std::cout << "\n" << "------------------TOURNEY PLAYERS----------------" << "\n";
+		for (int i = 0; i < playersInTournament.size(); i++) {
+			std::cout << i + 1 << ". " << playersInTournament.at(i)->getName() << "\n";
+		}
 
 		for (int i = 0; i < numOfPlayers; i++) {
 			std::cout << "Name of player to add?\n";
@@ -113,7 +121,9 @@ void Round::addMatch() {
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::getline(std::cin, name);
 
-	std::unique_ptr<Match> m = std::make_unique<Match>(name);
+	std::unique_ptr<Match> m = std::make_unique<Match>(name, playersInRound);
+	//m->addPlayers(playersInRound);
+
 	listOfMatches.push_back(move(m));
 
 }//end of addMatch
